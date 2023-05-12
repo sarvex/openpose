@@ -37,15 +37,15 @@ try:
 
     def get_sample_heatmaps():
         # These parameters are globally set. You need to unset variables set here if you have a new OpenPose object. See *
-        params = dict()
-        params["model_folder"] = "../../../models/"
-        params["heatmaps_add_parts"] = True
-        params["heatmaps_add_bkg"] = True
-        params["heatmaps_add_PAFs"] = True
-        params["heatmaps_scale"] = 3
-        params["upsampling_ratio"] = 1
-        params["body"] = 1
-
+        params = {
+            "model_folder": "../../../models/",
+            "heatmaps_add_parts": True,
+            "heatmaps_add_bkg": True,
+            "heatmaps_add_PAFs": True,
+            "heatmaps_scale": 3,
+            "upsampling_ratio": 1,
+            "body": 1,
+        }
         # Starting OpenPose
         opWrapper = op.WrapperPython()
         opWrapper.configure(params)

@@ -29,7 +29,7 @@ try:
         # Windows Import
         if platform == "win32":
             # Change these variables to point to the correct folder (Release/x64 etc.)
-            sys.path.append(dir_path + '/../../python/openpose/Release');
+            sys.path.append(f'{dir_path}/../../python/openpose/Release');
             os.environ['PATH']  = os.environ['PATH'] + ';' + dir_path + '/../../x64/Release;' +  dir_path + '/../../bin;'
             import pyopenpose as op
         else:
@@ -48,21 +48,15 @@ try:
     args = parser.parse_known_args()
 
     # Custom Params (refer to include/openpose/flags.hpp for more parameters)
-    params = dict()
-    params["model_folder"] = "../../../models/"
-
+    params = {"model_folder": "../../../models/"}
     # Add others in path?
     for i in range(0, len(args[1])):
         curr_item = args[1][i]
-        if i != len(args[1])-1: next_item = args[1][i+1]
-        else: next_item = "1"
-        if "--" in curr_item and "--" in next_item:
+        next_item = args[1][i+1] if i != len(args[1])-1 else "1"
+        if "--" in curr_item:
             key = curr_item.replace('-','')
-            if key not in params:  params[key] = "1"
-        elif "--" in curr_item and "--" not in next_item:
-            key = curr_item.replace('-','')
-            if key not in params: params[key] = next_item
-
+            if key not in params:
+                params[key] = "1" if "--" in next_item else next_item
     # Construct it from system arguments
     # op.init_argv(args[1])
     # oppython = op.OpenposePython()
